@@ -21,22 +21,22 @@ void TickFct_B(){
         switch(B_State){ //transition state
 
         case B_Wait:
-        if(~PINA & 0x01){
+        if(~PINA == 0x01){
         B_State = B_Incr;
         }
-	else if(~PINA & 0x02){
+	else if(~PINA == 0x02){
 	B_State = B_Decr;
 	}
-	else if((~PINA & 0x02) && (~PINA & 0x01)){
+	else if(~PINA == 0x03){
 	B_State = B_Zero;
 	}
         break;
 
         case B_Incr:
-	if((~PINA & 0x02) && (~PINA & 0x01)){
+	if(~PINA == 0x03){
 	B_State = B_Zero;
 	}
-	else if(PINA & 0x02){
+	else if(~PINA == 0x02){
 	B_State = B_Decr;
 	}
 	else if(~PINA == 0x00){
@@ -51,19 +51,19 @@ void TickFct_B(){
 	if(~PINA == 0x00){
 	B_State = B_Wait;
 	}
-	else if(~PINA & 0x02){
+	else if(~PINA == 0x02){
 	B_State = B_Decr;
 	}
-	else if((~PINA & 0x02) && (~PINA & 0x01)){
+	else if(~PINA == 0x03){
 	B_State = B_Zero;
 	}
 	break;
 
         case B_Decr:
-	if((~PINA & 0x02) && (~PINA & 0x01)){
+	if(~PINA == 0x03){
 	B_State = B_Zero;
 	}
-	else if(~PINA & 0x01){
+	else if(~PINA == 0x01){
 	B_State = B_Incr;
 	}
 	else if(~PINA == 0x00){
@@ -78,10 +78,10 @@ void TickFct_B(){
 	if(~PINA == 0x00){
 	B_State = B_Wait;
 	}
-	else if(~PINA & 0x01){
+	else if(~PINA == 0x01){
 	B_State = B_Incr;
 	}
-	else if ((~PINA & 0x02) && (~PINA & 0x01)){
+	else if (~PINA == 0x03){
 	B_State = B_Zero;
 	}
 	break;
@@ -89,13 +89,13 @@ void TickFct_B(){
         case B_Zero:
         B_State = B_Wait;
 	
-	if(~PINA & 0x01){
+	if(~PINA == 0x01){
         B_State = B_Incr;
         }
-        else if(~PINA & 0x02){
+        else if(~PINA == 0x02){
         B_State = B_Decr;
         }
-        else if((~PINA & 0x02) && (~PINA & 0x01)){
+        else if(~PINA == 0x03){
         B_State = B_Zero;
         }
         break;
@@ -136,7 +136,7 @@ void TickFct_B(){
 int main(void) {
     
 	DDRA = 0x00;
-	DDRC = 0xFF; 
+	DDRC = 0xFF;
 
 	PORTC = 0x07;
 	B_State = B_Wait;
