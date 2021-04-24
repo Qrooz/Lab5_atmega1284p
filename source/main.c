@@ -39,7 +39,7 @@ void TickFct_B(){
 	else if(PINA & 0x02){
 	B_State = B_Decr;
 	}
-	else if(~PINA == 0xFF){
+	else if(~PINA == 0x00){
 	B_State = B_Wait;
 	}
 	else{
@@ -48,7 +48,7 @@ void TickFct_B(){
         break;
 
 	case B_IncrWait:
-	if(~PINA == 0xFF){
+	if(~PINA == 0x00){
 	B_State = B_Wait;
 	}
 	else if(~PINA & 0x02){
@@ -66,7 +66,7 @@ void TickFct_B(){
 	else if(~PINA & 0x01){
 	B_State = B_Incr;
 	}
-	else if(~PINA == 0xFF){
+	else if(~PINA == 0x00){
 	B_State = B_Wait;
 	}
 	else{
@@ -75,7 +75,7 @@ void TickFct_B(){
         break;
 
 	case B_DecrWait:
-	if(~PINA == 0xFF){
+	if(~PINA == 0x00){
 	B_State = B_Wait;
 	}
 	else if(~PINA & 0x01){
@@ -136,7 +136,7 @@ void TickFct_B(){
 int main(void) {
     
 	DDRA = 0x00;
-	DDRC = 0xFF;
+	DDRC = 0xFF; 
 
 	PORTC = 0x07;
 	B_State = B_Wait;
