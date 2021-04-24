@@ -20,7 +20,7 @@ int main(void) {
     while (1) {
 
 	PORTC = 0x00;
-	unsigned char fuelLvl = PINA & 0x0F;
+	unsigned char fuelLvl = ~PINA & 0x0F;
 	if(fuelLvl == 1 | fuelLvl == 2){
 	PORTC = PORTC | 0x20;
 	}
