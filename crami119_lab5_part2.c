@@ -27,7 +27,7 @@ void TickFct_B(){
 	else if(~PINA & 0x02){
 	B_State = B_Decr;
 	}
-	else if(~PINA & 0x03){
+	else if((~PINA & 0x02) && (~PINA & 0x01)){
 	B_State = B_Zero;
 	}
         break;
@@ -136,7 +136,7 @@ void TickFct_B(){
 int main(void) {
     
 	DDRA = 0x00;
-	DDRC = 0xFF;
+	DDRC = 0xFF; 
 
 	PORTC = 0x07;
 	B_State = B_Wait;
