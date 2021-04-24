@@ -16,30 +16,36 @@
 
 enum B_States{B_Incr, B_IncrWait, B_Decr, B_DecrWait, B_Wait, B_Zero}B_State;
 
+
+
 void TickFct_B(){
+
+	unsigned char temp = ~PINA;
+
+
 
         switch(B_State){ //transition state
 
         case B_Wait:
-        if(~PINA == 0x01){
+        if(temp == 0x01){
         B_State = B_Incr;
         }
-	else if(~PINA == 0x02){
+	else if(temp == 0x02){
 	B_State = B_Decr;
 	}
-	else if(~PINA == 0x03){
+	else if(temp == 0x03){
 	B_State = B_Zero;
 	}
         break;
 
         case B_Incr:
-	if(~PINA == 0x03){
+	if(temp == 0x03){
 	B_State = B_Zero;
 	}
-	else if(~PINA == 0x02){
+	else if(temp == 0x02){
 	B_State = B_Decr;
 	}
-	else if(~PINA == 0x00){
+	else if(temp == 0x00){
 	B_State = B_Wait;
 	}
 	else{
@@ -48,25 +54,25 @@ void TickFct_B(){
         break;
 
 	case B_IncrWait:
-	if(~PINA == 0x00){
+	if(temp == 0x00){
 	B_State = B_Wait;
 	}
-	else if(~PINA == 0x02){
+	else if(temp == 0x02){
 	B_State = B_Decr;
 	}
-	else if(~PINA == 0x03){
+	else if(temp == 0x03){
 	B_State = B_Zero;
 	}
 	break;
 
         case B_Decr:
-	if(~PINA == 0x03){
+	if(temp == 0x03){
 	B_State = B_Zero;
 	}
-	else if(~PINA == 0x01){
+	else if(temp == 0x01){
 	B_State = B_Incr;
 	}
-	else if(~PINA == 0x00){
+	else if(temp == 0x00){
 	B_State = B_Wait;
 	}
 	else{
@@ -75,13 +81,13 @@ void TickFct_B(){
         break;
 
 	case B_DecrWait:
-	if(~PINA == 0x00){
+	if(temp == 0x00){
 	B_State = B_Wait;
 	}
-	else if(~PINA == 0x01){
+	else if(temp == 0x01){
 	B_State = B_Incr;
 	}
-	else if (~PINA == 0x03){
+	else if (temp == 0x03){
 	B_State = B_Zero;
 	}
 	break;
@@ -89,13 +95,13 @@ void TickFct_B(){
         case B_Zero:
         B_State = B_Wait;
 	
-	if(~PINA == 0x01){
+	if(temp == 0x01){
         B_State = B_Incr;
         }
-        else if(~PINA == 0x02){
+        else if(temp == 0x02){
         B_State = B_Decr;
         }
-        else if(~PINA == 0x03){
+        else if(temp == 0x03){
         B_State = B_Zero;
         }
         break;
