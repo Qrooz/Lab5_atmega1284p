@@ -1,38 +1,32 @@
 tests = [ 
     {
-        'description': 'PINA: 0x00 => PORTC: 0x07',
+        'description': 'PINA: 0x00 => PORTB: 0x2A',
         'steps': [{'inputs': [('PINA', 0xFF)], 'iterations': 1}],
-        'expected': [('PORTC',0x07)],
+        'expected': [('PORTB',0x2A)],
     },
     {
-        'description': 'PINA: 0x01 => PORTC: 0x08',
-        'steps': [{'inputs': [('PINA', 0xFE)], 'iterations': 1}],
-        'expected': [('PORTC',0x08)],
-    },
-    {
-        'description': 'PINA: 0x01 => PORTC: 0x08',
-        'steps': [{'inputs': [('PINA', 0xFE)], 'iterations': 1}],
-        'expected': [('PORTC',0x08)],
-    },
-    {
-        'description': 'PINA: 0x00 => PORTC: 0x08',
-        'steps': [{'inputs': [('PINA', 0xFF)], 'iterations': 1}],
-        'expected': [('PORTC',0x08)],
-    },
-    {
-        'description': 'PINA: 0x02 => PORTC: 0x07',
-        'steps': [{'inputs': [('PINA', 0xFD)], 'iterations': 1}],
-        'expected': [('PORTC',0x07)],
-    },
-    {
-        'description': 'Count Up to 9PINA: 0x01 => PORTC: 0x09',
+        'description': 'PINA: 0x00,0x01 => PORTB: 0x15',
         'steps': [
-            {'inputs': [('PINA', 0xFE)], 'iterations': 1},
             {'inputs': [('PINA', 0xFF)], 'iterations': 1},
             {'inputs': [('PINA', 0xFE)], 'iterations': 1},
+            ],
+        'expected': [('PORTB',0x15)],
+    },
+    {
+        'description': 'PINA: 0x00,0x01,0x00,0x01 => PORTB: 0x3F',
+        'steps': [
             {'inputs': [('PINA', 0xFF)], 'iterations': 1},
+            {'inputs': [('PINA', 0xFE)], 'iterations': 1},
+            ],
+        'expected': [('PORTB',0x3F)],
+    },
+    {
+        'description': 'PINA: 0x00,0x01,0x00,0x01,0x00,0x01 => PORTB: 0x2A',
+        'steps': [
+            {'inputs': [('PINA', 0xFF)], 'iterations': 1},
+            {'inputs': [('PINA', 0xFE)], 'iterations': 1},
         ],
-        'expected': [('PORTC',0x09)],
+        'expected': [('PORTB',0x2A)],
     },
     ]
-#watch = ['B_State', 'PORTC']
+watch = ['LED_State', 'PORTB']
